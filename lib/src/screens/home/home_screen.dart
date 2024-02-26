@@ -201,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-Future<void> _launchUrl(String url) async {
+Future<void> launchMyUrl(String url) async {
   if (!await launchUrl(Uri.parse(url))) {
     throw Exception('Could not launch $url');
   }
