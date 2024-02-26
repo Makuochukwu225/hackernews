@@ -11,6 +11,7 @@ class WebScreen extends StatefulWidget {
 class _WebScreenState extends State<WebScreen> {
   WebViewController? controller;
   bool isLoading = true;
+  int currentProgress = 0;
 
   @override
   void initState() {
@@ -22,6 +23,9 @@ class _WebScreenState extends State<WebScreen> {
         NavigationDelegate(
           onProgress: (int progress) {
             // Update loading bar.
+            setState(() {
+              currentProgress = progress;
+            });
           },
           onPageStarted: (String url) {},
           onPageFinished: (String url) {
@@ -46,8 +50,11 @@ class _WebScreenState extends State<WebScreen> {
     return Scaffold(
       body: SafeArea(child: Builder(builder: (context) {
         if (isLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Center(
+            child: CircularProgressIndicator(
+              color: Colors.grey,
+              value: currentProgress.toDouble(),
+            ),
           );
         }
         return WebViewWidget(controller: controller!);

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:hackernews/src/screens/web/web_screen.dart';
 import 'package:hackernews/src/src.dart';
 
@@ -172,11 +173,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       var latestNew = latestNews[index];
                       return ListTile(
                         onTap: () {
-                          showBottomSheet(
+                          showCupertinoModalPopup(
                             context: context,
                             // useSafeArea: true,
                             // isScrollControlled: true,
-                            enableDrag: false,
+                            // enableDrag: false,
                             builder: (context) {
                               return WebScreen(url: latestNew.url);
                             },
