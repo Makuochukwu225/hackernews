@@ -174,7 +174,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: () {
                           showBottomSheet(
                             context: context,
+                            // useSafeArea: true,
                             // isScrollControlled: true,
+                            enableDrag: false,
                             builder: (context) {
                               return WebScreen(url: latestNew.url);
                             },

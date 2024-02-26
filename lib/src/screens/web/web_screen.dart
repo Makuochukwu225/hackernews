@@ -10,6 +10,7 @@ class WebScreen extends StatefulWidget {
 
 class _WebScreenState extends State<WebScreen> {
   WebViewController? controller;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -23,7 +24,11 @@ class _WebScreenState extends State<WebScreen> {
             // Update loading bar.
           },
           onPageStarted: (String url) {},
-          onPageFinished: (String url) {},
+          onPageFinished: (String url) {
+            setState(() {
+              isLoading = false;
+            });
+          },
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
             if (request.url.startsWith('https://www.youtube.com/')) {
@@ -39,7 +44,14 @@ class _WebScreenState extends State<WebScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: WebViewWidget(controller: controller!)),
+      body: SafeArea(child: Builder(builder: (context) {
+        if (isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        return WebViewWidget(controller: controller!);
+      })),
     );
   }
 }
